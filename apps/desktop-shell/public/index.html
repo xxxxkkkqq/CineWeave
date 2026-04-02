@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CineWeave Desktop Shell</title>
+    <link rel="stylesheet" href="/apps/desktop-shell/public/styles.css" />
+  </head>
+  <body>
+    <div class="shell">
+      <header class="hero">
+        <div>
+          <span class="eyebrow">CineWeave Desktop Shell</span>
+          <h1>Project Control Room</h1>
+          <p>
+            A thin desktop shell page wired to the Rust media core adapter. Create or open a
+            project, inspect timeline state, drive editor UI state, and dispatch command batches.
+          </p>
+        </div>
+        <div id="status-line" class="status-line" data-tone="neutral">
+          Waiting for project document actions.
+        </div>
+      </header>
+
+      <main class="grid">
+        <aside class="stack">
+          <section class="panel">
+            <div class="panel-head">
+              <h2>Project Files</h2>
+              <button class="ghost compact" id="refresh-projects" type="button">Refresh</button>
+            </div>
+            <div class="panel-note">
+              Auto-discovered snapshot and event-log pairs from <code>target/demo-ui</code>.
+            </div>
+            <div id="project-files" class="project-list"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <h2>Recent Projects</h2>
+            </div>
+            <div id="recent-projects" class="project-list"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <h2>Project Open/Create</h2>
+            </div>
+            <form id="create-project-form" class="field-grid">
+              <label>
+                <span>Project ID</span>
+                <input id="project-id" value="ui-demo" />
+              </label>
+              <label>
+                <span>Project Name</span>
+                <input id="project-name" value="UI Demo" />
+              </label>
+              <label>
+                <span>Aspect Ratio</span>
+                <input id="aspect-ratio" value="16:9" />
+              </label>
+              <label>
+                <span>Snapshot Path</span>
+                <input id="snapshot-path" value="target/demo-ui/ui-snapshot.json" />
+              </label>
+              <label>
+                <span>Event Log Path</span>
+                <input id="event-log-path" value="target/demo-ui/ui-event-log.json" />
+              </label>
+              <label class="checkbox-row">
+                <input id="save-toggle" type="checkbox" checked />
+                Persist command batches
+              </label>
+              <div class="button-row">
+                <button class="primary" type="submit">Create</button>
+                <button class="secondary" id="load-project" type="button">Open / Refresh</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <h2>Editor Controls</h2>
+            </div>
+            <div class="stack">
+              <form id="selection-form" class="field-grid">
+                <h3>Selection</h3>
+                <label>
+                  <span>Clip IDs</span>
+                  <input id="selection-clip-ids" placeholder="clip-a, clip-b" />
+                </label>
+                <label>
+                  <span>Track ID</span>
+                  <input id="selection-track-id" placeholder="v1" />
+                </label>
+                <div class="button-row">
+                  <button class="primary" type="submit">Apply Selection</button>
+                  <button class="ghost" id="clear-selection" type="button">Clear</button>
+                </div>
+              </form>
+
+              <form id="playhead-form" class="field-grid">
+                <h3>Playhead</h3>
+                <label>
+                  <span>Playhead (ms)</span>
+                  <input id="playhead-ms" type="number" value="1200" />
+                </label>
+                <button class="primary" type="submit">Set Playhead</button>
+              </form>
+
+              <form id="viewport-form" class="field-grid">
+                <h3>Viewport</h3>
+                <label>
+                  <span>Scroll X</span>
+                  <input id="viewport-scroll-x" type="number" value="0" />
+                </label>
+                <label>
+                  <span>Scroll Y</span>
+                  <input id="viewport-scroll-y" type="number" value="0" />
+                </label>
+                <label>
+                  <span>Zoom %</span>
+                  <input id="viewport-zoom" type="number" value="100" />
+                </label>
+                <button class="primary" type="submit">Set Viewport</button>
+              </form>
+            </div>
+          </section>
+        </aside>
+
+        <section class="stack">
+          <section class="panel">
+            <div class="panel-head">
+              <h2>Timeline State Viewer</h2>
+            </div>
+            <div id="project-summary"></div>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <h2>Timeline Tracks</h2>
+            </div>
+            <div id="timeline-viewer" class="timeline-viewer"></div>
+          </section>
+        </section>
+
+        <aside class="stack">
+          <section class="panel">
+            <div class="panel-head">
+              <h2>Command Dispatch Console</h2>
+            </div>
+            <form id="apply-console" class="field-grid">
+              <label>
+                <span>Commands JSON</span>
+                <textarea id="command-textarea"></textarea>
+              </label>
+              <div class="button-row">
+                <button class="primary" type="submit">Apply Commands</button>
+                <button class="ghost" id="undo-button" type="button">Undo</button>
+                <button class="ghost" id="redo-button" type="button">Redo</button>
+              </div>
+            </form>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <h2>Current State JSON</h2>
+            </div>
+            <pre id="state-json" class="code-panel"></pre>
+          </section>
+
+          <section class="panel">
+            <div class="panel-head">
+              <h2>Last Response</h2>
+            </div>
+            <pre id="response-json" class="code-panel"></pre>
+          </section>
+        </aside>
+      </main>
+    </div>
+
+    <script type="module" src="/apps/desktop-shell/public/app.js"></script>
+  </body>
+</html>

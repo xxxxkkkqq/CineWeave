@@ -1,0 +1,9 @@
+coverage/
+dist/
+tmp/
+node_modules/
+target/
+.DS_Store
+Thumbs.db
+*.log
+research/upstreams/**/.git

@@ -1,0 +1,17 @@
+{
+  "name": "cineweave",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Production-oriented foundation for an open-source conversational video editing system.",
+  "license": "MIT",
+  "scripts": {
+    "doctor": "node apps/cli/src/index.js doctor",
+    "plan": "node apps/cli/src/index.js plan",
+    "desktop:shell": "node apps/desktop-shell/server.js",
+    "test": "node --test --test-isolation=none tests/all.test.js"
+  },
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}
