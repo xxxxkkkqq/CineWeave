@@ -1,6 +1,6 @@
 # CineWeave
 
-CineWeave is a local-first, open-source foundation for conversational video editing.
+CineWeave is a local-first, open-source foundation for conversational video editing, developed with Codex.
 
 The project explores a practical architecture where a user describes editing intent in natural language and the system can turn that intent into deterministic project state, task graphs, timeline operations, UI commands, and render-oriented plans.
 
